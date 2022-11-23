@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(defuse)
+project(HeatEq)
 
 set(CMAKE_CXX_STANDARD 17)
 
