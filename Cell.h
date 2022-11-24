@@ -6,7 +6,6 @@
 
 class Cell {
 public:
-public:
     double temp;
-    double conductivity;
+    double thermal_conductivity;
 };
