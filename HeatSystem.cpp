@@ -6,10 +6,10 @@
 #include <utility>
 #include <fstream>
 
-HeatSystem::HeatSystem(Matrix& system ) : system(std::move(system)) {
+HeatSystem::HeatSystem(std::unique_ptr<Matrix> system ) : system (std::move(system)) {
 }
 
-HeatSystem::HeatSystem(Matrix& system, double dt) : system(std::move(system)), dt(dt) {
+HeatSystem::HeatSystem(std::unique_ptr<Matrix> system, double dt) : system( std::move(system)), dt(dt) {
 
 }
 
@@ -30,19 +30,22 @@ auto HeatSystem::simulate(double tf) -> void {
 }
 
 auto HeatSystem::write(std::fstream &outfile) -> void {
-    for (int i = 0; i < system.get_width(); ++i) {
-        for (int j = 0; j < system.get_height(); ++j) {
-            outfile << system.get_cell(i,j).temp <<"\n";
+    for (int i = 0; i < system->get_width(); ++i) {
+        for (int j = 0; j < system->get_height(); ++j) {
+            outfile << system->get_cell(i,j).temp <<"\n";
         }
     }
 }
 //steady state
 // no generation
 auto HeatSystem::update() -> void {
-    for (int i = 0; i < system.get_width(); ++i) {
-        for (int j = 0; j < system.get_height(); ++j) {
-
+    Matrix new_system(system->get_height(),system->get_width());
+    for (int i = 0; i < system->get_width(); ++i) {
+        for (int j = 0; j < system->get_height(); ++j) {
+            Cell new_temp =;
+            new_system.set_cell(i,j,new_temp);
         }
     }
-
+    system.reset();
+    system = std::make_unique<Matrix>(new_system);
 }

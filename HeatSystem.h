@@ -8,11 +8,11 @@
 
 class HeatSystem {
 public:
-    explicit HeatSystem(Matrix& system);
-    HeatSystem(Matrix &system, double dt);
+    HeatSystem(std::unique_ptr<Matrix> system);
+    HeatSystem(std::unique_ptr<Matrix>, double dt);
     auto simulate(double tf) -> void;
 private:
-    Matrix system;
+    std::unique_ptr<Matrix> system;
     double dt = 0.001;
     double time_elapsed = 0.0f;
 
