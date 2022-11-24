@@ -11,11 +11,12 @@ class Matrix {
 public:
     Matrix(int m, int n);
     auto get_cell(int m, int n) -> Cell;
-    [[nodiscard]] auto get_width() const -> int{ return n; };
-    [[nodiscard]] auto get_height() const -> int{ return m; };
+    auto set_cell(int m, int n,  Cell data) -> void;
+    [[nodiscard]] auto get_width() const -> int{ return j; };
+    [[nodiscard]] auto get_height() const -> int{ return i; };
 private:
-    int m;
-    int n;
+    int i;
+    int j;
     std::vector<std::vector<Cell>> matrix;
 
 };
