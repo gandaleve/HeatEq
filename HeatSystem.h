@@ -12,10 +12,12 @@ public:
     HeatSystem(std::unique_ptr<Matrix>, double dt);
     auto simulate(double tf) -> void;
 private:
+
     std::unique_ptr<Matrix> system;
     double dt = 0.001;
     double time_elapsed = 0.0f;
-
+    double alpha = 2.0;
+    double gamma = (alpha * dt);
     auto write(std::fstream &outfile) -> void;
     auto update() -> void;
 };

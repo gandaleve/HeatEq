@@ -32,20 +32,21 @@ auto HeatSystem::simulate(double tf) -> void {
 auto HeatSystem::write(std::fstream &outfile) -> void {
     for (int i = 0; i < system->get_width(); ++i) {
         for (int j = 0; j < system->get_height(); ++j) {
-            outfile << system->get_cell(i,j).temp <<"\n";
+            outfile << system->get(i, j) << "\n";
         }
     }
 }
-//steady state
+// steady state
 // no generation
 auto HeatSystem::update() -> void {
     Matrix new_system(system->get_height(),system->get_width());
-    for (int i = 0; i < system->get_width(); ++i) {
-        for (int j = 0; j < system->get_height(); ++j) {
-            Cell new_temp =;
-            new_system.set_cell(i,j,new_temp);
+    for (int i = 1; i < system->get_width(); i+=1) {
+        for (int j = 1; j < system->get_height();j+=1) {
+            double new_temp = gamma * (system->get(i + 1, j) + system->get(i - 1, j) + system->get(i, j + 1)
+                                       + system->get(i, j - 1) - 4 * system->get(i, j)) + system->get(i, j);
+            new_system.set(i, j, new_temp);
         }
     }
-    system.reset();
+    system.reset(nullptr);
     system = std::make_unique<Matrix>(new_system);
 }
