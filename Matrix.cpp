@@ -5,10 +5,10 @@ Matrix::Matrix(int m, int n) {
     this->j = n;
 }
 
-auto Matrix::get_cell(int m, int n) -> Cell {
+auto Matrix::get(int m, int n) -> double {
     return matrix.at(m).at(n);
 }
 
-auto Matrix::set_cell(int m, int n, Cell data) -> void {
+auto Matrix::set(int m, int n, double data) -> void {
     matrix.at(m).at(n) = data;
 }

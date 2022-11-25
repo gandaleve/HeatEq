@@ -10,13 +10,13 @@
 class Matrix {
 public:
     Matrix(int m, int n);
-    auto get_cell(int m, int n) -> Cell;
-    auto set_cell(int m, int n,  Cell data) -> void;
+    auto get(int m, int n) -> double;
+    auto set(int m, int n, double data) -> void;
     [[nodiscard]] auto get_width() const -> int{ return j; };
     [[nodiscard]] auto get_height() const -> int{ return i; };
 private:
     int i;
     int j;
-    std::vector<std::vector<Cell>> matrix;
+    std::vector<std::vector<double>> matrix;
 
 };
