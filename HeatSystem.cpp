@@ -6,16 +6,13 @@
 #include <utility>
 #include <fstream>
 
-HeatSystem::HeatSystem(std::unique_ptr<Matrix> system ) : system (std::move(system)) {
-}
-
 HeatSystem::HeatSystem(std::unique_ptr<Matrix> system, double dt) : system( std::move(system)), dt(dt) {
 
 }
 
 auto HeatSystem::simulate(double tf) -> void {
     time_elapsed = 0.0f;
-    std::fstream outfile;
+    std::ofstream outfile;
     outfile.open("HeatSystem.txt");
 
     if (!outfile.is_open())
@@ -29,21 +26,27 @@ auto HeatSystem::simulate(double tf) -> void {
     outfile.close();
 }
 
-auto HeatSystem::write(std::fstream &outfile) -> void {
-    for (int i = 0; i < system->get_width(); ++i) {
-        for (int j = 0; j < system->get_height(); ++j) {
-            outfile << system->get(i, j) << "\n";
+auto HeatSystem::write(std::ofstream &outfile) -> void {
+    int x, y;
+    x = system->get_width();
+    y = system->get_height();
+    for (int i = 0; i < y; i+=1) {
+        for (int j = 0; j < x; j+=1) {
+            outfile << system->get(i, j)<<" ";
         }
+        outfile << "\n";
     }
+    outfile << "\n" << std::endl;
+
 }
 // steady state
 // no generation
 auto HeatSystem::update() -> void {
-    Matrix new_system(system->get_height(),system->get_width());
-    for (int i = 1; i < system->get_width(); i+=1) {
-        for (int j = 1; j < system->get_height();j+=1) {
+    Matrix new_system(system->get_width(),system->get_height());
+    for (int i = 1; i < system->get_height()-1; i+=1) {
+        for (int j = 1; j < system->get_width()-1;j+=1) {
             double new_temp = gamma * (system->get(i + 1, j) + system->get(i - 1, j) + system->get(i, j + 1)
-                                       + system->get(i, j - 1) - 4 * system->get(i, j)) + system->get(i, j);
+                                       + system->get(i, j - 1) - (4 * system->get(i, j))) + system->get(i, j);
             new_system.set(i, j, new_temp);
         }
     }

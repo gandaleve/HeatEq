@@ -3,4 +3,4 @@ project(HeatEq)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(defuse main.cpp HeatSystem.cpp HeatSystem.h Matrix.cpp Matrix.h Cell.cpp Cell.h)
+add_executable(HeatEq main.cpp HeatSystem.cpp HeatSystem.h Matrix.cpp Matrix.h)

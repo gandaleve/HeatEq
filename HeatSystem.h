@@ -8,7 +8,6 @@
 
 class HeatSystem {
 public:
-    HeatSystem(std::unique_ptr<Matrix> system);
     HeatSystem(std::unique_ptr<Matrix>, double dt);
     auto simulate(double tf) -> void;
 private:
@@ -18,6 +17,6 @@ private:
     double time_elapsed = 0.0f;
     double alpha = 2.0;
     double gamma = (alpha * dt);
-    auto write(std::fstream &outfile) -> void;
+    auto write(std::ofstream &outfile) -> void;
     auto update() -> void;
 };

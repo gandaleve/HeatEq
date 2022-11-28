@@ -1,8 +1,10 @@
 #include "Matrix.h"
+#include <vector>
 
 Matrix::Matrix(int m, int n) {
-    this->i = m;
-    this->j = n;
+    i = n;
+    j = m;
+    matrix = std::vector(i, std::vector<double>(j, 0));
 }
 
 auto Matrix::get(int m, int n) -> double {
